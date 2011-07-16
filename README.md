@@ -1,18 +1,21 @@
-# Heroku-ready framework with Thin, jQuery and Queuing
+# Heroku-ready demo using Rails3, delayed_job and jquery
 
-This app uses delayed_job to process deferred tasks.  If the
-delayed_job daemon is not running, you will never get updates.  To
-start the delayed_job daemon on the local machine:
+This demo implements an RSS feed reader, based on Adam Wiggins's github.com/adamwiggins/qfeedreader, 
+using Rails3, jquery, delayed_job, and structured to be deployed on Heroku's cedar stack.
 
-    % script/delayed_job start
-or
-    % rake jobs:work
+# To deploy on heroku
 
-I'll need to figure out how to run that on Heroku, but it probably
-involves adding to Procfile and paying for a worker job.
+    % heroku create --stack cedar
+    % git push heroku master
+    % heroku run rake db:create
+    % heroku run rake db:migrate
+    % heroku scale worker=1
+    % heroku open
 
-# setting up jquery
+# To run locally
 
-* include `gem 'jquery-rails'` in Gemfile
-* bundle install
-* rails generate jquery:install
+    % rails db:create
+    % rails db:migrate
+    % rake jobs:work &
+    % rails server &
+    % open http://localhost:3000
