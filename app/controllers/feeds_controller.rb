@@ -1,9 +1,11 @@
 class FeedsController < ApplicationController
 
+  # GET /feeds
   def index
     @feeds = Feed.find(:all, :include => :posts)
   end
 
+  # GET /feed/:id
   def show
     @feed = Feed.find(params[:id])
 
@@ -14,18 +16,15 @@ class FeedsController < ApplicationController
     end
   end
 
+  # POST /feeds
   def create
     feed = Feed.create! :url => params[:url]
     redirect_to :action => :index
   end
 
+  # POST refresh_feed/:id
   def refresh
     Feed.find(params[:id]).fetch
-    head :ok
-  end
-
-  def refresh_all
-    Feed.fetch_all
     head :ok
   end
 

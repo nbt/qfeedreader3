@@ -9,9 +9,10 @@
 </form>
 
 <% unless @feeds.empty? %>
-  <div class="refresh_all"><%= link_to_function "refresh all", 'refresh_all()' %></div>
+  <div class="refresh_all">
+    <%# this link will be handled with a jQuery / javascript call %>
+    <%= link_to "refresh all", '#' %>
+  </div>
+  <%= render @feeds %>
 <% end %>
 
-<% @feeds.each do |feed| %>
-  <%= render :partial => 'feed', :locals => { :feed => feed } %>
-<% end %>
